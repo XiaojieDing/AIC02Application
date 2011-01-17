@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/AIC02/AIC02" xmlns:ns2="http://infosys.tuwien.ac.at/aic10/ass1/dto/warehouse" xmlns:ns3="http://services.bookstore/" xmlns:ns4="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement" xmlns:ns5="http://infosys.tuwien.ac.at/aic10/ass1/dto/shipping" xmlns:ns6="http://infosys.tuwien.ac.at/aic10/ass2/process" xmlns:ns7="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplier" xmlns:ns8="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" version="1.0">
+    <services binding-component="true">
+        <provides endpoint-name="WarehousePT" interface-name="ns2:Warehouse" service-name="ns2:WarehouseService"/>
+        <provides endpoint-name="SupplierRegistryJaxWsPort" interface-name="ns8:SupplierRegistry" service-name="ns3:SupplierRegistryJaxWsService"/>
+        <provides endpoint-name="CustomerManagementPT" interface-name="ns4:CustomerManagement" service-name="ns4:CustomerManagementServiceJaxWs"/>
+        <provides endpoint-name="ShippingPT" interface-name="ns5:ShippingService" service-name="ns5:ShippingService"/>
+        <provides endpoint-name="SupplierPT" interface-name="ns7:Supplier" service-name="ns7:SupplierFacade"/>
+        <consumes endpoint-name="OrderProcessPort" interface-name="ns6:OrderProcessPortType" service-name="ns6:OrderProcessService"/>
+    </services>
+</jbi>

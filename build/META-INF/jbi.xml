@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/AIC02/AIC02" xmlns:ns2="http://infosys.tuwien.ac.at/aic10/ass1/dto/warehouse" xmlns:ns3="http://services.bookstore/" xmlns:ns4="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement" xmlns:ns5="http://infosys.tuwien.ac.at/aic10/ass1/dto/shipping" xmlns:ns6="http://infosys.tuwien.ac.at/aic10/ass2/process" xmlns:ns7="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/jbi ./jbi.xsd">
+    <service-assembly>
+        <identification>
+            <name>AIC02Application</name>
+            <description>Represents the Service Assembly of AIC02Application</description>
+        </identification>
+        <service-unit>
+            <identification>
+                <name>AIC02Application-AIC02</name>
+                <description>Represents this Service Unit</description>
+            </identification>
+            <target>
+                <artifacts-zip>AIC02.jar</artifacts-zip>
+                <component-name>sun-bpel-engine</component-name>
+            </target>
+        </service-unit>
+        <service-unit>
+            <identification>
+                <name>AIC02Application-sun-http-binding</name>
+                <description>Represents this Service Unit</description>
+            </identification>
+            <target>
+                <artifacts-zip>sun-http-binding.jar</artifacts-zip>
+                <component-name>sun-http-binding</component-name>
+            </target>
+        </service-unit>
+        <connections>
+            <connection>
+                <consumer endpoint-name="WarehouseProvider_partnerRole" service-name="ns1:Warehaus"/>
+                <provider endpoint-name="WarehousePT" service-name="ns2:WarehouseService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="SupplierRegistryProvider_partnerRole" service-name="ns1:Registry"/>
+                <provider endpoint-name="SupplierRegistryJaxWsPort" service-name="ns3:SupplierRegistryJaxWsService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="CustomerManagementProvider_partnerRole" service-name="ns1:CustomerMNG"/>
+                <provider endpoint-name="CustomerManagementPT" service-name="ns4:CustomerManagementServiceJaxWs"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="ShippingProvider_partnerRole" service-name="ns1:Shiping"/>
+                <provider endpoint-name="ShippingPT" service-name="ns5:ShippingService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="OrderProcessPort" service-name="ns6:OrderProcessService"/>
+                <provider endpoint-name="OrderProcessProvider_myRole" service-name="ns1:OrderProcess"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="SupplierFacadeProvider_partnerRole" service-name="ns1:SupplierService"/>
+                <provider endpoint-name="SupplierPT" service-name="ns7:SupplierFacade"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

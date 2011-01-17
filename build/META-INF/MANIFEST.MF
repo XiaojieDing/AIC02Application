@@ -1,0 +1,4 @@
+Bundle-Name: AIC02Application
+Bundle-SymbolicName: AIC02Application
+Bundle-ManifestVersion: 2
+Bundle-Version: 1.0.0

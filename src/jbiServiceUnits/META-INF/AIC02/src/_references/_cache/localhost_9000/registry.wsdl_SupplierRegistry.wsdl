@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="SupplierRegistry" targetNamespace="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" xmlns:ns1="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema targetNamespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" version="1.0" xmlns:ns1="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:import namespace="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" />
+<xs:element name="Action" type="ns1:AttributedURI" />
+<xs:element name="EndpointReference" type="ns1:EndpointReferenceType" />
+<xs:element name="FaultTo" type="ns1:EndpointReferenceType" />
+<xs:element name="From" type="ns1:EndpointReferenceType" />
+<xs:element name="MessageID" type="ns1:AttributedURI" />
+<xs:element name="RelatesTo" type="ns1:Relationship" />
+<xs:element name="ReplyAfter" type="ns1:ReplyAfterType" />
+<xs:element name="ReplyTo" type="ns1:EndpointReferenceType" />
+<xs:element name="RetryAfter" type="ns1:RetryAfterType" />
+<xs:element name="To" type="ns1:AttributedURI" />
+</xs:schema>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" version="1.0" xmlns:tns="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="get_address_from_supplier" type="tns:get_address_from_supplier" />
+<xs:element name="get_address_from_supplierResponse" type="tns:get_address_from_supplierResponse" />
+<xs:element name="item" type="tns:item" />
+<xs:element name="product" type="tns:product" />
+<xs:complexType name="get_address_from_supplier">
+<xs:sequence>
+<xs:element minOccurs="0" name="product" type="tns:product" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="product">
+<xs:sequence>
+<xs:element minOccurs="0" name="name" type="xs:string" />
+<xs:element minOccurs="0" name="singleUnitPrice" type="xs:decimal" />
+<xs:element minOccurs="0" name="items">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:item" />
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+<xs:attribute name="id" type="xs:string" />
+</xs:complexType>
+<xs:complexType name="item">
+<xs:sequence>
+<xs:element name="quantity" type="xs:int" />
+<xs:element minOccurs="0" name="product" type="tns:product" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="get_address_from_supplierResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:EndpointReferenceType" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="EndpointReferenceType">
+<xs:sequence>
+<xs:element name="Address" type="tns:AttributedURI" />
+<xs:element minOccurs="0" name="ReferenceProperties" type="tns:ReferencePropertiesType" />
+<xs:element minOccurs="0" name="ReferenceParameters" type="tns:ReferenceParametersType" />
+<xs:element minOccurs="0" name="PortType" type="tns:AttributedQName" />
+<xs:element minOccurs="0" name="ServiceName" type="tns:ServiceNameType" />
+<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax" />
+</xs:sequence>
+<xs:anyAttribute namespace="##other" processContents="skip" />
+</xs:complexType>
+<xs:simpleType name="AttributedURI">
+<xs:restriction base="xs:string" />
+</xs:simpleType>
+<xs:complexType name="ReferencePropertiesType">
+<xs:sequence>
+<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ServiceNameType">
+<xs:simpleContent>
+<xs:extension base="xs:QName">
+<xs:attribute name="PortName" type="xs:NCName" />
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+<xs:simpleType name="AttributedQName">
+<xs:restriction base="xs:QName" />
+</xs:simpleType>
+<xs:complexType name="ReferenceParametersType">
+<xs:sequence>
+<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Relationship">
+<xs:simpleContent>
+<xs:extension base="xs:string">
+<xs:attribute name="RelationshipType" type="xs:QName" />
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+<xs:simpleType name="ReplyAfterType">
+<xs:restriction base="xs:integer" />
+</xs:simpleType>
+<xs:simpleType name="RetryAfterType">
+<xs:restriction base="xs:integer" />
+</xs:simpleType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="get_address_from_supplierResponse">
+    <wsdl:part element="ns1:get_address_from_supplierResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="get_address_from_supplier">
+    <wsdl:part element="ns1:get_address_from_supplier" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SupplierRegistry">
+    <wsdl:operation name="get_address_from_supplier">
+      <wsdl:input message="ns1:get_address_from_supplier" name="get_address_from_supplier">
+    </wsdl:input>
+      <wsdl:output message="ns1:get_address_from_supplierResponse" name="get_address_from_supplierResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

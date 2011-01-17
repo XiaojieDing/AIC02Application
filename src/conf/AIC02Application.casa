@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://infosys.tuwien.ac.at/aic10/ass1/dto/warehouse" xmlns:ns2="http://services.bookstore/" xmlns:ns3="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplierregistry" xmlns:ns4="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement" xmlns:ns5="http://infosys.tuwien.ac.at/aic10/ass1/dto/shipping" xmlns:ns6="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplier" xmlns:ns7="http://infosys.tuwien.ac.at/aic10/ass2/process" xmlns:ns8="http://enterprise.netbeans.org/bpel/AIC02/AIC02" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="WarehousePT" interface-name="ns1:Warehouse" name="endpoint1" service-name="ns1:WarehouseService"/>
+        <endpoint endpoint-name="SupplierRegistryJaxWsPort" interface-name="ns3:SupplierRegistry" name="endpoint2" service-name="ns2:SupplierRegistryJaxWsService"/>
+        <endpoint endpoint-name="CustomerManagementPT" interface-name="ns4:CustomerManagement" name="endpoint3" service-name="ns4:CustomerManagementServiceJaxWs"/>
+        <endpoint endpoint-name="ShippingPT" interface-name="ns5:ShippingService" name="endpoint4" service-name="ns5:ShippingService"/>
+        <endpoint endpoint-name="SupplierPT" interface-name="ns6:Supplier" name="endpoint5" service-name="ns6:SupplierFacade"/>
+        <endpoint endpoint-name="OrderProcessPort" interface-name="ns7:OrderProcessPortType" name="endpoint6" service-name="ns7:OrderProcessService"/>
+        <endpoint display-name="OrderProcess" endpoint-name="OrderProcessProvider_myRole" file-path="OrderProcess.bpel" interface-name="ns7:OrderProcessPortType" name="endpoint7" process-name="OrderProcess" service-name="ns8:OrderProcess"/>
+        <endpoint display-name="CustomerMNG" endpoint-name="CustomerManagementProvider_partnerRole" file-path="OrderProcess.bpel" interface-name="ns4:CustomerManagement" name="endpoint8" process-name="OrderProcess" service-name="ns8:CustomerMNG"/>
+        <endpoint display-name="Warehaus" endpoint-name="WarehouseProvider_partnerRole" file-path="OrderProcess.bpel" interface-name="ns1:Warehouse" name="endpoint9" process-name="OrderProcess" service-name="ns8:Warehaus"/>
+        <endpoint display-name="Registry" endpoint-name="SupplierRegistryProvider_partnerRole" file-path="OrderProcess.bpel" interface-name="ns3:SupplierRegistry" name="endpoint10" process-name="OrderProcess" service-name="ns8:Registry"/>
+        <endpoint display-name="SupplierService" endpoint-name="SupplierFacadeProvider_partnerRole" file-path="OrderProcess.bpel" interface-name="ns6:Supplier" name="endpoint11" process-name="OrderProcess" service-name="ns8:SupplierService"/>
+        <endpoint display-name="Shiping" endpoint-name="ShippingProvider_partnerRole" file-path="OrderProcess.bpel" interface-name="ns5:ShippingService" name="endpoint12" process-name="OrderProcess" service-name="ns8:Shiping"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="AIC02.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="AIC02Application-AIC02" unit-name="AIC02" unknown="false" x="174" y="99">
+            <provides endpoint="endpoint7"/>
+            <consumes endpoint="endpoint8"/>
+            <consumes endpoint="endpoint9"/>
+            <consumes endpoint="endpoint10"/>
+            <consumes endpoint="endpoint11"/>
+            <consumes endpoint="endpoint12"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="AIC02Application-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="434">
+                    <link xlink:href="../jbiServiceUnits/AIC02/CustomerManagementService.wsdl#xpointer(/definitions/service[@name='CustomerManagementServiceJaxWs']/port[@name='CustomerManagementPT'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+                <port x="67" y="355">
+                    <link xlink:href="../jbiServiceUnits/AIC02/OrderProcess.wsdl#xpointer(/definitions/service[@name='OrderProcessService']/port[@name='OrderProcessPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint6"/>
+                    <provides endpoint="endpoint6"/>
+                </port>
+                <port x="67" y="276">
+                    <link xlink:href="../jbiServiceUnits/AIC02/registry.wsdl#xpointer(/definitions/service[@name='SupplierRegistryJaxWsService']/port[@name='SupplierRegistryJaxWsPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/AIC02/ShippingService.wsdl#xpointer(/definitions/service[@name='ShippingService']/port[@name='ShippingPT'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+                <port x="67" y="118">
+                    <link xlink:href="../jbiServiceUnits/AIC02/SupplierFacade.wsdl#xpointer(/definitions/service[@name='SupplierFacade']/port[@name='SupplierPT'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5"/>
+                </port>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/AIC02/WarehouseService.wsdl#xpointer(/definitions/service[@name='WarehouseService']/port[@name='WarehousePT'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint9" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint10" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint12" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint6" provider="endpoint7" state="unchanged"/>
+        <connection consumer="endpoint11" provider="endpoint5" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/AIC02/CustomerManagementService.wsdl#xpointer(/definitions/portType[@name='CustomerManagement'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/OrderProcess.wsdl#xpointer(/definitions/portType[@name='OrderProcessPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/ShippingService.wsdl#xpointer(/definitions/portType[@name='ShippingService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/SupplierFacade.wsdl#xpointer(/definitions/portType[@name='Supplier'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/WarehouseService.wsdl#xpointer(/definitions/portType[@name='Warehouse'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AIC02/src/_references/_cache/localhost_9000/registry.wsdl_SupplierRegistry.wsdl#xpointer(/definitions/portType[@name='SupplierRegistry'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/AIC02/CustomerManagementService.wsdl#xpointer(/definitions/binding[@name='CustomerManagementPTBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/OrderProcess.wsdl#xpointer(/definitions/binding[@name='OrderProcessBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/registry.wsdl#xpointer(/definitions/binding[@name='SupplierRegistryJaxWsServiceSoapBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/ShippingService.wsdl#xpointer(/definitions/binding[@name='ShippingPTBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/SupplierFacade.wsdl#xpointer(/definitions/binding[@name='SupplierPTBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/WarehouseService.wsdl#xpointer(/definitions/binding[@name='WarehousePTBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/AIC02/CustomerManagementService.wsdl#xpointer(/definitions/service[@name='CustomerManagementServiceJaxWs'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/OrderProcess.wsdl#xpointer(/definitions/service[@name='OrderProcessService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/registry.wsdl#xpointer(/definitions/service[@name='SupplierRegistryJaxWsService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/ShippingService.wsdl#xpointer(/definitions/service[@name='ShippingService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/SupplierFacade.wsdl#xpointer(/definitions/service[@name='SupplierFacade'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AIC02/WarehouseService.wsdl#xpointer(/definitions/service[@name='WarehouseService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>
